@@ -4,7 +4,15 @@ from pydantic import BaseModel
 from datetime import datetime
 from pathlib import Path
 
-app = FastAPI(title="DevOps Demo API", version="1.0.0")
+app = FastAPI(
+    title="DevOps Demo API", 
+    version="1.0.0",
+    description="Complete DevOps Pipeline Demo with FastAPI, Docker & GitHub Actions",
+    contact={
+        "name": "Hadeed Khan",
+        "url": "https://github.com/hadeedkhan117/devops-github-actions-fastapi"
+    }
+)
 
 
 class EchoRequest(BaseModel):
@@ -25,6 +33,18 @@ def echo(req: EchoRequest):
     return {
         "you_said": req.message,
         "length": len(req.message)
+    }
+
+
+@app.get("/version")
+def version():
+    from .version import __version__, __build__, __author__, __description__
+    return {
+        "version": __version__,
+        "build": __build__,
+        "author": __author__,
+        "description": __description__,
+        "github": "https://github.com/hadeedkhan117/devops-github-actions-fastapi"
     }
 
 
@@ -225,7 +245,7 @@ $ curl -X POST http://localhost:8000/echo -d '{"message":"test"}'</div>
                 </div>
                 <div class="controls">
                     <button class="btn btn-primary" onclick="runStep(5)" id="runBtn5" disabled>▶️ Test API</button>
-                    <button class="btn btn-success" onclick="showCompletion()" id="nextBtn5" disabled>🎉 Complete Demo</button>
+                    <button class="btn btn-success" onclick="nextStep(5)" id="nextBtn5" disabled>Next Step →</button>
                 </div>
                 <div class="api-controls">
                     <input type="text" class="api-input" id="customMessage" placeholder="Enter custom message" value="DevOps Demo Success!">
@@ -234,6 +254,38 @@ $ curl -X POST http://localhost:8000/echo -d '{"message":"test"}'</div>
                 <div class="output-section" id="outputSection5" style="display:none;">
                     <div class="command-label">API Response:</div>
                     <div class="output-box" id="output5"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 6: GitHub Actions CI/CD -->
+        <div class="step-container" id="step6">
+            <div class="step-header" onclick="toggleStep(6)">
+                <div class="step-title">
+                    <div class="step-number">6</div>
+                    🚀 GitHub Actions CI/CD
+                </div>
+                <div class="step-status status-pending" id="status6">Waiting</div>
+            </div>
+            <div class="step-content" id="content6">
+                <div class="explanation">
+                    <strong>What this does:</strong> Shows GitHub Actions workflows that automatically run CI/CD pipeline when code is pushed to the repository.
+                </div>
+                <div class="command-section">
+                    <div class="command-label">GitHub Repository:</div>
+                    <div class="command-box">https://github.com/hadeedkhan117/devops-github-actions-fastapi</div>
+                </div>
+                <div class="controls">
+                    <button class="btn btn-primary" onclick="runStep(6)" id="runBtn6" disabled>▶️ Check CI/CD Status</button>
+                    <button class="btn btn-success" onclick="showCompletion()" id="nextBtn6" disabled>🎉 Complete Demo</button>
+                </div>
+                <div class="api-controls">
+                    <button class="btn btn-secondary" onclick="window.open('https://github.com/hadeedkhan117/devops-github-actions-fastapi/actions', '_blank')">View GitHub Actions</button>
+                    <button class="btn btn-secondary" onclick="window.open('https://github.com/hadeedkhan117/devops-github-actions-fastapi', '_blank')">View Repository</button>
+                </div>
+                <div class="output-section" id="outputSection6" style="display:none;">
+                    <div class="command-label">CI/CD Status:</div>
+                    <div class="output-box" id="output6"></div>
                 </div>
             </div>
         </div>
@@ -257,10 +309,12 @@ $ curl -X POST http://localhost:8000/echo -d '{"message":"test"}'</div>
                         <li>✅ Code quality checks with ruff</li>
                         <li>✅ Docker containerization</li>
                         <li>✅ Live API functionality</li>
+                        <li>✅ GitHub Actions CI/CD pipeline</li>
                     </ul>
                     <div style="margin-top: 30px;">
                         <button class="btn btn-primary" onclick="resetDemo()">🔄 Reset Demo</button>
                         <button class="btn btn-success" onclick="window.open('/frontend', '_blank')">🚀 Open Frontend</button>
+                        <button class="btn btn-secondary" onclick="window.open('https://github.com/hadeedkhan117/devops-github-actions-fastapi', '_blank')">💻 View GitHub</button>
                     </div>
                 </div>
             </div>
@@ -277,7 +331,7 @@ $ curl -X POST http://localhost:8000/echo -d '{"message":"test"}'</div>
         }
 
         function updateProgress() {
-            const progress = (completedSteps / 5) * 100;
+            const progress = (completedSteps / 6) * 100;
             document.getElementById('progressBar').style.width = progress + '%';
         }
 
@@ -364,6 +418,25 @@ Testing POST /echo endpoint:
 
 ✅ API endpoints responding correctly!`;
                         break;
+                        
+                    case 6:
+                        await new Promise(resolve => setTimeout(resolve, 1200));
+                        result = `GitHub Actions Workflows:
+
+✅ CI Pipeline (.github/workflows/ci.yml)
+  - Runs on: push to main/develop, pull requests
+  - Steps: Install deps → Ruff lint → Pytest
+  - Status: ✅ Ready to trigger
+
+✅ Docker Build (.github/workflows/docker.yml)
+  - Runs on: push to main
+  - Steps: Checkout → Build Docker image
+  - Status: ✅ Ready to trigger
+
+🚀 Repository: https://github.com/hadeedkhan117/devops-github-actions-fastapi
+
+✅ CI/CD pipeline configured and ready!`;
+                        break;
                 }
                 
                 outputEl.textContent = result;
@@ -382,7 +455,7 @@ Testing POST /echo endpoint:
         }
 
         function nextStep(stepNum) {
-            if (stepNum < 5) {
+            if (stepNum < 6) {
                 document.getElementById(`runBtn${stepNum + 1}`).disabled = false;
                 document.getElementById(`status${stepNum + 1}`).textContent = 'Ready';
                 document.getElementById(`content${stepNum + 1}`).classList.add('active');

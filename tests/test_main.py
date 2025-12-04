@@ -13,3 +13,9 @@ def test_echo():
     assert r.status_code == 200
     assert r.json()["you_said"] == "DevOps"
     assert r.json()["length"] == 6
+
+def test_version():
+    r = client.get("/version")
+    assert r.status_code == 200
+    assert "version" in r.json()
+    assert "github" in r.json()
