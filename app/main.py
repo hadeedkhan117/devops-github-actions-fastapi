@@ -72,7 +72,7 @@ def demo_page():
         .step-container { background: white; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); margin-bottom: 20px; overflow: hidden; }
         .step-header { background: #f8f9fa; padding: 20px; border-bottom: 1px solid #e9ecef; display: flex; justify-content: between; align-items: center; }
         .step-title { font-size: 1.3em; font-weight: 600; color: #2c3e50; display: flex; align-items: center; }
-        .step-number { background: #667eea; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold; }
+        .step-number { background: #667eea; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold; font-size: 1.2em; }
         .step-status { padding: 6px 12px; border-radius: 20px; font-size: 0.85em; font-weight: 500; }
         .status-pending { background: #fff3cd; color: #856404; }
         .status-running { background: #d1ecf1; color: #0c5460; }
@@ -110,6 +110,87 @@ def demo_page():
             <p>Complete CI/CD Demo with FastAPI, Docker & GitHub Actions</p>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressBar"></div>
+            </div>
+        </div>
+
+        <!-- DevOps Lifecycle Visualization -->
+        <div class="step-container">
+            <div class="step-header">
+                <div class="step-title">
+                    <div class="step-number">🔄</div>
+                    DevOps Lifecycle - What We're Demonstrating
+                </div>
+            </div>
+            <div class="step-content active">
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                    <div style="text-align: center; font-family: monospace; font-size: 0.9em; line-height: 2;">
+                        <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px;">
+                            <span style="background: #667eea; color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold;">📋 Plan</span>
+                            <span style="font-size: 1.5em;">→</span>
+                            <span style="background: #48bb78; color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold;">💻 Code</span>
+                            <span style="font-size: 1.5em;">→</span>
+                            <span style="background: #ed8936; color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold;">🔨 Build</span>
+                            <span style="font-size: 1.5em;">→</span>
+                            <span style="background: #4299e1; color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold;">🧪 Test</span>
+                            <span style="font-size: 1.5em;">→</span>
+                            <span style="background: #9f7aea; color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold;">📦 Release</span>
+                            <span style="font-size: 1.5em;">→</span>
+                            <span style="background: #f56565; color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold;">🚀 Deploy</span>
+                            <span style="font-size: 1.5em;">→</span>
+                            <span style="background: #38b2ac; color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold;">⚙️ Operate</span>
+                            <span style="font-size: 1.5em;">→</span>
+                            <span style="background: #ed64a6; color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold;">📊 Monitor</span>
+                        </div>
+                        <div style="margin-top: 15px; font-size: 1.2em; color: #667eea;">
+                            ⬆️ Continuous Feedback Loop ⬆️
+                        </div>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 20px;">
+                    <div style="background: #667eea; color: white; padding: 15px; border-radius: 8px;">
+                        <h4 style="margin: 0 0 10px 0;">📋 Plan</h4>
+                        <p style="margin: 0; font-size: 0.9em;">Define requirements and architecture</p>
+                        <p style="margin: 5px 0 0 0; font-size: 0.85em; opacity: 0.9;">Our Demo: Project structure design</p>
+                    </div>
+                    <div style="background: #48bb78; color: white; padding: 15px; border-radius: 8px;">
+                        <h4 style="margin: 0 0 10px 0;">💻 Code</h4>
+                        <p style="margin: 0; font-size: 0.9em;">Write application code</p>
+                        <p style="margin: 5px 0 0 0; font-size: 0.85em; opacity: 0.9;">Our Demo: FastAPI application (Step 1)</p>
+                    </div>
+                    <div style="background: #ed8936; color: white; padding: 15px; border-radius: 8px;">
+                        <h4 style="margin: 0 0 10px 0;">🔨 Build</h4>
+                        <p style="margin: 0; font-size: 0.9em;">Package application</p>
+                        <p style="margin: 5px 0 0 0; font-size: 0.85em; opacity: 0.9;">Our Demo: Docker containerization (Step 4)</p>
+                    </div>
+                    <div style="background: #4299e1; color: white; padding: 15px; border-radius: 8px;">
+                        <h4 style="margin: 0 0 10px 0;">🧪 Test</h4>
+                        <p style="margin: 0; font-size: 0.9em;">Automated testing</p>
+                        <p style="margin: 5px 0 0 0; font-size: 0.85em; opacity: 0.9;">Our Demo: pytest + ruff (Steps 2-3)</p>
+                    </div>
+                    <div style="background: #9f7aea; color: white; padding: 15px; border-radius: 8px;">
+                        <h4 style="margin: 0 0 10px 0;">📦 Release</h4>
+                        <p style="margin: 0; font-size: 0.9em;">Prepare for deployment</p>
+                        <p style="margin: 5px 0 0 0; font-size: 0.85em; opacity: 0.9;">Our Demo: GitHub Actions CI/CD (Step 6)</p>
+                    </div>
+                    <div style="background: #f56565; color: white; padding: 15px; border-radius: 8px;">
+                        <h4 style="margin: 0 0 10px 0;">🚀 Deploy</h4>
+                        <p style="margin: 0; font-size: 0.9em;">Push to production</p>
+                        <p style="margin: 5px 0 0 0; font-size: 0.85em; opacity: 0.9;">Our Demo: Docker Compose deployment</p>
+                    </div>
+                    <div style="background: #38b2ac; color: white; padding: 15px; border-radius: 8px;">
+                        <h4 style="margin: 0 0 10px 0;">⚙️ Operate</h4>
+                        <p style="margin: 0; font-size: 0.9em;">Manage running application</p>
+                        <p style="margin: 5px 0 0 0; font-size: 0.85em; opacity: 0.9;">Our Demo: Container management</p>
+                    </div>
+                    <div style="background: #ed64a6; color: white; padding: 15px; border-radius: 8px;">
+                        <h4 style="margin: 0 0 10px 0;">📊 Monitor</h4>
+                        <p style="margin: 0; font-size: 0.9em;">Track performance & health</p>
+                        <p style="margin: 5px 0 0 0; font-size: 0.85em; opacity: 0.9;">Our Demo: API health checks (Step 5)</p>
+                    </div>
+                </div>
+                <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin-top: 20px; border-radius: 4px;">
+                    <strong>💡 Key Insight:</strong> This demo covers the complete DevOps lifecycle! Each step below demonstrates a specific phase of modern software delivery.
+                </div>
             </div>
         </div>
 
