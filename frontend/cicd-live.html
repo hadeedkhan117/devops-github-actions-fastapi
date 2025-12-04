@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Live CI/CD Demo - Real Commands</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { text-align: center; color: white; margin-bottom: 30px; }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .card { background: white; border-radius: 12px; padding: 30px; margin-bottom: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+        .step { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #667eea; }
+        .step h3 { color: #2c3e50; margin-bottom: 15px; font-size: 1.3em; }
+        .step-number { background: #667eea; color: white; width: 40px; height: 40px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 10px; }
+        .btn { background: #667eea; color: white; border: none; padding: 15px 30px; border-radius: 6px; font-size: 1.1em; cursor: pointer; transition: all 0.3s; margin: 5px; }
+        .btn:hover { background: #5a67d8; transform: translateY(-2px); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-success { background: #48bb78; }
+        .btn-success:hover { background: #38a169; }
+        .btn-danger { background: #f56565; }
+        .output { background: #1a202c; color: #e2e8f0; padding: 20px; border-radius: 8px; font-family: monospace; max-height: 300px; overflow-y: auto; white-space: pre-wrap; margin-top: 15px; }
+        .status { padding: 8px 16px; border-radius: 20px; display: inline-block; margin: 10px 0; font-weight: bold; }
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-success { background: #d4edda; color: #155724; }
+        .status-running { background: #d1ecf1; color: #0c5460; }
+        .instruction { background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 15px 0; border-radius: 4px; }
+        .command-box { background: #2d3748; color: #e2e8f0; padding: 15px; border-radius: 6px; font-family: monospace; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Live CI/CD Demo</h1>
+            <p>Execute real git commands and watch GitHub Actions automatically!</p>
+        </div>
+
+        <div class="card">
+            <h2 style="color: #667eea; margin-bottom: 20px;">📋 Demo Instructions</h2>
+            <p style="font-size: 1.1em; margin-bottom: 15px;">Follow these steps to demonstrate the complete CI/CD workflow:</p>
+            <ol style="margin-left: 20px; line-height: 2;">
+                <li><strong>Step 1:</strong> Check current git status</li>
+                <li><strong>Step 2:</strong> Make your code changes manually (edit files in your IDE)</li>
+                <li><strong>Step 3:</strong> Commit the changes</li>
+                <li><strong>Step 4:</strong> Push to GitHub (triggers CI/CD automatically!)</li>
+                <li><strong>Step 5:</strong> Watch GitHub Actions run</li>
+            </ol>
+        </div>
+
+        <!-- Step 1: Git Status -->
+        <div class="step">
+            <h3><span class="step-number">1</span> Check Git Status</h3>
+            <p>See if there are any uncommitted changes in your repository.</p>
+            <div class="command-box">$ git status</div>
+            <button class="btn" onclick="checkStatus()">▶️ Run: git status</button>
+            <div class="status status-pending" id="status1">Ready</div>
+            <div class="output" id="output1" style="display:none;"></div>
+        </div>
+
+        <!-- Step 2: Make Changes -->
+        <div class="step">
+            <h3><span class="step-number">2</span> Make Code Changes</h3>
+            <div class="instruction">
+                <strong>⚠️ MANUAL STEP:</strong> Now make your changes in your IDE or terminal:
+                <div class="command-box">Option 1: Edit any file in your IDE
+Option 2: Run in terminal:
+  echo "# Demo change $(date)" >> README.md</div>
+            </div>
+            <p>After making changes, click "Check Status" in Step 1 again to verify.</p>
+            <div class="status status-pending" id="status2">Waiting for changes...</div>
+        </div>
+
+        <!-- Step 3: Commit -->
+        <div class="step">
+            <h3><span class="step-number">3</span> Commit Changes</h3>
+            <p>Stage and commit your changes with a message.</p>
+            <div class="command-box">$ git add .
+$ git commit -m "feat: Demo change from frontend"</div>
+            <button class="btn" onclick="commitChanges()" id="commitBtn">▶️ Run: git commit</button>
+            <div class="status status-pending" id="status3">Ready</div>
+            <div class="output" id="output3" style="display:none;"></div>
+        </div>
+
+        <!-- Step 4: Push -->
+        <div class="step">
+            <h3><span class="step-number">4</span> Push to GitHub</h3>
+            <p><strong>⚡ This triggers GitHub Actions automatically!</strong></p>
+            <div class="command-box">$ git push origin main</div>
+            <button class="btn btn-success" onclick="pushToGitHub()" id="pushBtn">🚀 Run: git push origin main</button>
+            <div class="status status-pending" id="status4">Ready</div>
+            <div class="output" id="output4" style="display:none;"></div>
+        </div>
+
+        <!-- Step 5: Watch GitHub Actions -->
+        <div class="step">
+            <h3><span class="step-number">5</span> Watch GitHub Actions</h3>
+            <p>GitHub Actions will automatically run CI/CD pipeline within 5 seconds!</p>
+            <div style="margin: 20px 0;">
+                <button class="btn" onclick="window.open('https://github.com/hadeedkhan117/devops-github-actions-fastapi/actions', '_blank')">📊 Open GitHub Actions</button>
+                <button class="btn" onclick="window.open('https://github.com/hadeedkhan117/devops-github-actions-fastapi', '_blank')">💻 Open Repository</button>
+            </div>
+            <div class="instruction">
+                <strong>What to watch for:</strong>
+                <ul style="margin: 10px 0 0 20px;">
+                    <li>✅ CI Pipeline: Linting + Testing (~18 seconds)</li>
+                    <li>✅ Docker Build: Container Image (~21 seconds)</li>
+                    <li>✅ Total time: ~30 seconds (vs 30 minutes manually!)</li>
+                </ul>
+            </div>
+            <div class="status status-pending" id="status5">Waiting for push...</div>
+        </div>
+
+        <!-- Success Message -->
+        <div class="card" id="successCard" style="display:none; background: #d4edda; border-left: 4px solid #28a745;">
+            <h2 style="color: #155724;">🎉 CI/CD Pipeline Triggered!</h2>
+            <p style="color: #155724; font-size: 1.1em; margin-top: 10px;">
+                Your code has been pushed to GitHub. GitHub Actions is now automatically:
+            </p>
+            <ul style="color: #155724; margin: 15px 0 0 20px; line-height: 2;">
+                <li>✅ Running code quality checks (Ruff linter)</li>
+                <li>✅ Executing unit tests (pytest)</li>
+                <li>✅ Building Docker container image</li>
+                <li>✅ Preparing for deployment</li>
+            </ul>
+            <p style="color: #155724; font-weight: bold; margin-top: 15px;">
+                ⏱️ Total automation time: ~30 seconds<br>
+                💰 Time saved: 29 minutes 30 seconds per deployment!
+            </p>
+        </div>
+    </div>
+
+    <script>
+        async function checkStatus() {
+            const output = document.getElementById('output1');
+            const status = document.getElementById('status1');
+            
+            status.textContent = 'Running...';
+            status.className = 'status status-running';
+            output.style.display = 'block';
+            output.textContent = 'Checking git status...\n';
+            
+            try {
+                const response = await fetch('/api/git-status');
+                const data = await response.json();
+                
+                output.textContent += '\n' + data.output;
+                
+                if (data.output.includes('nothing to commit')) {
+                    status.textContent = '✅ Clean - No changes';
+                    status.className = 'status status-success';
+                    document.getElementById('status2').textContent = '⚠️ Make changes now!';
+                } else {
+                    status.textContent = '✅ Changes detected!';
+                    status.className = 'status status-success';
+                    document.getElementById('status2').textContent = '✅ Changes ready to commit';
+                    document.getElementById('status2').className = 'status status-success';
+                }
+            } catch (error) {
+                output.textContent += '\n❌ Error: ' + error.message;
+                status.textContent = '❌ Error';
+            }
+        }
+
+        async function commitChanges() {
+            const output = document.getElementById('output3');
+            const status = document.getElementById('status3');
+            const btn = document.getElementById('commitBtn');
+            
+            btn.disabled = true;
+            status.textContent = 'Committing...';
+            status.className = 'status status-running';
+            output.style.display = 'block';
+            output.textContent = 'Running: git add . && git commit...\n';
+            
+            try {
+                const response = await fetch('/api/git-commit', { method: 'POST' });
+                const data = await response.json();
+                
+                output.textContent += '\n' + data.output;
+                
+                if (data.success) {
+                    status.textContent = '✅ Committed successfully!';
+                    status.className = 'status status-success';
+                    document.getElementById('status4').textContent = '✅ Ready to push';
+                    document.getElementById('status4').className = 'status status-success';
+                } else {
+                    status.textContent = '⚠️ Check output';
+                    btn.disabled = false;
+                }
+            } catch (error) {
+                output.textContent += '\n❌ Error: ' + error.message;
+                status.textContent = '❌ Error';
+                btn.disabled = false;
+            }
+        }
+
+        async function pushToGitHub() {
+            const output = document.getElementById('output4');
+            const status = document.getElementById('status4');
+            const btn = document.getElementById('pushBtn');
+            
+            btn.disabled = true;
+            status.textContent = 'Pushing to GitHub...';
+            status.className = 'status status-running';
+            output.style.display = 'block';
+            output.textContent = 'Running: git push origin main...\n';
+            
+            try {
+                const response = await fetch('/api/git-push', { method: 'POST' });
+                const data = await response.json();
+                
+                output.textContent += '\n' + data.output;
+                
+                if (data.success || data.output.includes('main -> main')) {
+                    status.textContent = '✅ Pushed successfully!';
+                    status.className = 'status status-success';
+                    document.getElementById('status5').textContent = '⚡ GitHub Actions triggered!';
+                    document.getElementById('status5').className = 'status status-success';
+                    document.getElementById('successCard').style.display = 'block';
+                    
+                    // Auto-open GitHub Actions after 2 seconds
+                    setTimeout(() => {
+                        window.open('https://github.com/hadeedkhan117/devops-github-actions-fastapi/actions', '_blank');
+                    }, 2000);
+                } else {
+                    status.textContent = '⚠️ Check output';
+                    btn.disabled = false;
+                }
+            } catch (error) {
+                output.textContent += '\n❌ Error: ' + error.message;
+                status.textContent = '❌ Error';
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

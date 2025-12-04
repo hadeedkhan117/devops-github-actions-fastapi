@@ -6,3 +6,11 @@ services:
     container_name: devops-api
     ports:
       - "8000:8000"
+    volumes:
+      - .:/app
+      - ~/.ssh:/root/.ssh:ro
+    environment:
+      - GIT_AUTHOR_NAME=DevOps Demo
+      - GIT_AUTHOR_EMAIL=demo@devops.com
+      - GIT_COMMITTER_NAME=DevOps Demo
+      - GIT_COMMITTER_EMAIL=demo@devops.com

@@ -25,3 +25,6 @@ docker compose up --build
 pytest -v
 ruff check .
 ```# Demo change
+# Demo change from terminal
+# Demo change Fri Dec  5 03:10:53 PKT 2025
+# Demo change Fri Dec  5 03:11:12 PKT 2025
