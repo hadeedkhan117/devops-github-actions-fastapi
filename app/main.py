@@ -55,6 +55,145 @@ def frontend():
     return html_path.read_text(encoding="utf-8")
 
 
+@app.get("/", response_class=HTMLResponse)
+def home():
+    return """<!DOCTYPE html>
+<html>
+<head>
+    <title>DevOps Demo - Home</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { text-align: center; color: white; margin-bottom: 40px; }
+        .header h1 { font-size: 3em; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .header p { font-size: 1.2em; opacity: 0.9; }
+        .nav-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .nav-card { background: white; border-radius: 12px; padding: 30px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer; }
+        .nav-card:hover { transform: translateY(-5px); box-shadow: 0 12px 48px rgba(0,0,0,0.2); }
+        .nav-card h2 { color: #667eea; margin-bottom: 15px; font-size: 1.5em; }
+        .nav-card p { color: #666; margin-bottom: 20px; line-height: 1.6; }
+        .nav-card a { display: inline-block; background: #667eea; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500; transition: background 0.3s ease; }
+        .nav-card a:hover { background: #5a67d8; }
+        .lifecycle { background: white; border-radius: 12px; padding: 30px; margin-bottom: 40px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+        .lifecycle h2 { color: #667eea; margin-bottom: 20px; text-align: center; }
+        .lifecycle-flow { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+        .lifecycle-item { background: #667eea; color: white; padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 0.9em; }
+        .arrow { font-size: 1.5em; color: #667eea; }
+        .resources { background: white; border-radius: 12px; padding: 30px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+        .resources h2 { color: #667eea; margin-bottom: 20px; }
+        .resource-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+        .resource-item { background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #667eea; }
+        .resource-item h3 { color: #2c3e50; margin-bottom: 8px; font-size: 1.1em; }
+        .resource-item a { color: #667eea; text-decoration: none; font-weight: 500; }
+        .resource-item a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 DevOps Complete Demo</h1>
+            <p>Interactive demonstration of the complete DevOps lifecycle</p>
+        </div>
+
+        <div class="lifecycle">
+            <h2>🔄 DevOps Lifecycle</h2>
+            <div class="lifecycle-flow">
+                <span class="lifecycle-item">📋 Plan</span>
+                <span class="arrow">→</span>
+                <span class="lifecycle-item">💻 Code</span>
+                <span class="arrow">→</span>
+                <span class="lifecycle-item">🔨 Build</span>
+                <span class="arrow">→</span>
+                <span class="lifecycle-item">🧪 Test</span>
+                <span class="arrow">→</span>
+                <span class="lifecycle-item">📦 Release</span>
+                <span class="arrow">→</span>
+                <span class="lifecycle-item">🚀 Deploy</span>
+                <span class="arrow">→</span>
+                <span class="lifecycle-item">⚙️ Operate</span>
+                <span class="arrow">→</span>
+                <span class="lifecycle-item">📊 Monitor</span>
+            </div>
+            <p style="text-align: center; color: #667eea; font-weight: bold; margin-top: 15px;">⬆️ Continuous Feedback Loop ⬆️</p>
+        </div>
+
+        <div class="nav-grid">
+            <div class="nav-card">
+                <h2>🎯 Interactive Demo Dashboard</h2>
+                <p>Step-by-step demonstration of the complete DevOps pipeline with live command execution and real-time outputs.</p>
+                <a href="/demo" target="_blank">Launch Demo Dashboard →</a>
+            </div>
+
+            <div class="nav-card">
+                <h2>📚 API Documentation</h2>
+                <p>Interactive Swagger UI documentation. Test all API endpoints directly in your browser.</p>
+                <a href="/docs" target="_blank">Open API Docs →</a>
+            </div>
+
+            <div class="nav-card">
+                <h2>🌐 Frontend Interface</h2>
+                <p>User-friendly interface to interact with the API. Test status checks and echo functionality.</p>
+                <a href="/frontend" target="_blank">Open Frontend →</a>
+            </div>
+
+            <div class="nav-card">
+                <h2>🐳 GitHub Repository</h2>
+                <p>View the complete source code, CI/CD workflows, and project documentation on GitHub.</p>
+                <a href="https://github.com/hadeedkhan117/devops-github-actions-fastapi" target="_blank">View Repository →</a>
+            </div>
+
+            <div class="nav-card">
+                <h2>⚙️ GitHub Actions</h2>
+                <p>See the CI/CD pipeline in action. View automated test runs and deployment workflows.</p>
+                <a href="https://github.com/hadeedkhan117/devops-github-actions-fastapi/actions" target="_blank">View Actions →</a>
+            </div>
+
+            <div class="nav-card">
+                <h2>📊 Version Info</h2>
+                <p>Check application version, build information, and project metadata.</p>
+                <a href="/version" target="_blank">View Version →</a>
+            </div>
+        </div>
+
+        <div class="resources">
+            <h2>📝 Documentation & Resources</h2>
+            <div class="resource-list">
+                <div class="resource-item">
+                    <h3>📖 Complete Guide</h3>
+                    <a href="https://github.com/hadeedkhan117/devops-github-actions-fastapi/blob/main/COMPLETE_GUIDE.md" target="_blank">Read Full Guide</a>
+                </div>
+                <div class="resource-item">
+                    <h3>🎬 Live Demo Script</h3>
+                    <a href="https://github.com/hadeedkhan117/devops-github-actions-fastapi/blob/main/LIVE_DEMO_SCRIPT.md" target="_blank">View Demo Script</a>
+                </div>
+                <div class="resource-item">
+                    <h3>📝 README</h3>
+                    <a href="https://github.com/hadeedkhan117/devops-github-actions-fastapi/blob/main/README.md" target="_blank">Project README</a>
+                </div>
+                <div class="resource-item">
+                    <h3>📦 Requirements</h3>
+                    <a href="https://github.com/hadeedkhan117/devops-github-actions-fastapi/blob/main/requirements.txt" target="_blank">View Dependencies</a>
+                </div>
+                <div class="resource-item">
+                    <h3>🐳 Dockerfile</h3>
+                    <a href="https://github.com/hadeedkhan117/devops-github-actions-fastapi/blob/main/Dockerfile" target="_blank">View Dockerfile</a>
+                </div>
+                <div class="resource-item">
+                    <h3>⚙️ CI Workflow</h3>
+                    <a href="https://github.com/hadeedkhan117/devops-github-actions-fastapi/blob/main/.github/workflows/ci.yml" target="_blank">View CI Pipeline</a>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; color: white; margin-top: 40px; padding: 20px;">
+            <p style="font-size: 1.1em; margin-bottom: 10px;">Built with FastAPI, Docker, and GitHub Actions</p>
+            <p style="opacity: 0.8;">Complete DevOps Pipeline Demonstration</p>
+        </div>
+    </div>
+</body>
+</html>"""
+
 @app.get("/demo", response_class=HTMLResponse)
 def demo_page():
     return """<!DOCTYPE html>
