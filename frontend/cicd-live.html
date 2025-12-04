@@ -84,8 +84,12 @@ $ git commit -m "feat: Demo change from frontend"</div>
         <div class="step">
             <h3><span class="step-number">4</span> Push to GitHub</h3>
             <p><strong>⚡ This triggers GitHub Actions automatically!</strong></p>
-            <div class="command-box">$ git push origin main</div>
-            <button class="btn btn-success" onclick="pushToGitHub()" id="pushBtn">🚀 Run: git push origin main</button>
+            <div class="instruction">
+                <strong>⚠️ Push from your terminal (requires SSH/credentials):</strong>
+                <div class="command-box" id="pushCommand">cd /Users/appleenterprises/Documents/DEVOPS/devops-github-actions-fastapi && git push origin main</div>
+                <button class="btn" onclick="copyPushCommand()">📋 Copy Command</button>
+                <button class="btn btn-success" onclick="markPushed()">✅ I Pushed It!</button>
+            </div>
             <div class="status status-pending" id="status4">Ready</div>
             <div class="output" id="output4" style="display:none;"></div>
         </div>
@@ -193,43 +197,29 @@ $ git commit -m "feat: Demo change from frontend"</div>
             }
         }
 
-        async function pushToGitHub() {
-            const output = document.getElementById('output4');
+        function copyPushCommand() {
+            const command = document.getElementById('pushCommand').textContent;
+            navigator.clipboard.writeText(command);
+            alert('✅ Command copied! Paste it in your terminal.');
+        }
+        
+        function markPushed() {
             const status = document.getElementById('status4');
-            const btn = document.getElementById('pushBtn');
+            const output = document.getElementById('output4');
             
-            btn.disabled = true;
-            status.textContent = 'Pushing to GitHub...';
-            status.className = 'status status-running';
+            status.textContent = '✅ Pushed successfully!';
+            status.className = 'status status-success';
             output.style.display = 'block';
-            output.textContent = 'Running: git push origin main...\n';
+            output.textContent = '✅ Code pushed to GitHub!\n\n⚡ GitHub Actions should be running now...\n\nCheck the Actions page:';
             
-            try {
-                const response = await fetch('/api/git-push', { method: 'POST' });
-                const data = await response.json();
-                
-                output.textContent += '\n' + data.output;
-                
-                if (data.success || data.output.includes('main -> main')) {
-                    status.textContent = '✅ Pushed successfully!';
-                    status.className = 'status status-success';
-                    document.getElementById('status5').textContent = '⚡ GitHub Actions triggered!';
-                    document.getElementById('status5').className = 'status status-success';
-                    document.getElementById('successCard').style.display = 'block';
-                    
-                    // Auto-open GitHub Actions after 2 seconds
-                    setTimeout(() => {
-                        window.open('https://github.com/hadeedkhan117/devops-github-actions-fastapi/actions', '_blank');
-                    }, 2000);
-                } else {
-                    status.textContent = '⚠️ Check output';
-                    btn.disabled = false;
-                }
-            } catch (error) {
-                output.textContent += '\n❌ Error: ' + error.message;
-                status.textContent = '❌ Error';
-                btn.disabled = false;
-            }
+            document.getElementById('status5').textContent = '⚡ GitHub Actions triggered!';
+            document.getElementById('status5').className = 'status status-success';
+            document.getElementById('successCard').style.display = 'block';
+            
+            // Auto-open GitHub Actions after 1 second
+            setTimeout(() => {
+                window.open('https://github.com/hadeedkhan117/devops-github-actions-fastapi/actions', '_blank');
+            }, 1000);
         }
     </script>
 </body>
