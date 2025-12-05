@@ -63,6 +63,12 @@ def cicd_live():
     return html_path.read_text(encoding="utf-8")
 
 
+@app.get("/manual-vs-automated", response_class=HTMLResponse)
+def manual_vs_automated():
+    html_path = Path("frontend/manual-vs-automated.html")
+    return html_path.read_text(encoding="utf-8")
+
+
 @app.get("/", response_class=HTMLResponse)
 def home():
     return """<!DOCTYPE html>
@@ -143,6 +149,12 @@ def home():
                 <h2>⚡ Live CI/CD Demo (Real Commands)</h2>
                 <p>Execute real git commands from your browser! Make changes, commit, push, and watch GitHub Actions run.</p>
                 <a href="/cicd-live" target="_blank">Launch Live Demo →</a>
+            </div>
+
+            <div class="nav-card">
+                <h2>⚔️ Manual vs Automated</h2>
+                <p>Side-by-side comparison showing how manual processes take 8-10 hours vs 41 seconds with automation!</p>
+                <a href="/manual-vs-automated" target="_blank">View Comparison →</a>
             </div>
 
             <div class="nav-card">
